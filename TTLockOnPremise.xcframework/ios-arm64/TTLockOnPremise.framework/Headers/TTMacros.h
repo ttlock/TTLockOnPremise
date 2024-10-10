@@ -411,6 +411,9 @@ typedef NS_ENUM(NSInteger,TTLockFeatureValue) {
     TTLockFeatureValueManualSetAngle = 79,
     TTLockFeatureValueControlLatchBolt = 80,
     TTLockFeatureValueAutoSetUnlockDirection = 81,
+    TTLockFeatureValuePublicMode = 86,
+    TTLockFeatureValueLowBatteryAutoUnlock = 87,
+    TTLockFeatureValueMotorDriveTime = 88,
 };
 
 typedef NS_ENUM(NSInteger ,TTLockConfigType) {
@@ -422,7 +425,9 @@ typedef NS_ENUM(NSInteger ,TTLockConfigType) {
     TTPrivacyLock,
 	TTPassageModeAutoUnlock,
     TTWifiPowerSavingMode,
-    TTDoubleAuth
+    TTDoubleAuth,
+    TTPublicMode,
+    TTLowBatteryAutoUnlock,
 };
 
 /*!

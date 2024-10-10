@@ -13,21 +13,15 @@
 
 + (instancetype _Nonnull  )shareInstance;
 
-/* only do dfu operation
+/* start Dfu
  
-Before calling this interface,  please set the gateway into upgrade mode first.
 You can upgrade the gateway by the following two ways.
  
 1 By net
- call server "/gateway/setUpgradeMode"
+ call server Api to set Upgrade Mode, then call below method
  
 2 By Bluetooth
- call sdk below method
- [TTGateway upgradeGatewayWithGatewayMac:dfuModel.gatewayMac block:^(TTGatewayStatus status) {
-     if (status == TTGatewaySuccess) {
-       [[TTGatewayDFU shareInstance] startDfuWithFirmwarePackage...];
-     }
-   }];
+ Re Connect the Power of the gateway, then call below method
  */
 
 - (void)startDfuWithFirmwarePackage:(NSString *_Nonnull)firmwarePackage
