@@ -170,7 +170,8 @@ typedef NS_ENUM(int, TTLockType)
     TTLockTypeRemoteControl  ,
     TTLockTypeHotelLock ,
 	TTLockTypeLift,
-	TTLockTypePowerSaver
+	TTLockTypePowerSaver,
+    TTLockTypeWifiPowerSaver,
 };
 
 
@@ -310,6 +311,9 @@ typedef NS_ENUM(NSInteger,TTDeviceInfoType) {
     TTDeviceInfoTypeOfNbCardNumber = 9,
     TTDeviceInfoTypeOfNbRssi = 10,
     TTDeviceInfoTypeOfPasscodeKeyNumber = 12,
+    TTDeviceInfoTypeOfCameraSerialNumber = 13,
+    TTDeviceInfoTypeOfUuid = 14,
+    TTDeviceInfoTypeOfAuthCode = 15,
 };
 
 typedef NS_ENUM(long long, TTLockSpecialFunction)
@@ -411,9 +415,15 @@ typedef NS_ENUM(NSInteger,TTLockFeatureValue) {
     TTLockFeatureValueManualSetAngle = 79,
     TTLockFeatureValueControlLatchBolt = 80,
     TTLockFeatureValueAutoSetUnlockDirection = 81,
+    TTLockFeatureValueWifiPowerSavingTime = 83,
+    TTLockFeatureValueMultifunctionalKeypad = 84,
     TTLockFeatureValuePublicMode = 86,
     TTLockFeatureValueLowBatteryAutoUnlock = 87,
     TTLockFeatureValueMotorDriveTime = 88,
+    TTLockFeatureValueModifyFeatureValue = 89,
+    TTLockFeatureValueModifyLockNamePrefix = 90,
+    TTLockFeatureValueAuthCode = 92,
+    TTLockFeatureValuePowerSaverSupportWifi = 96,
 };
 
 typedef NS_ENUM(NSInteger ,TTLockConfigType) {
@@ -542,6 +552,12 @@ typedef NS_ENUM(int, TTAutoUnlockDirection) {
     TTAutoUnlockDirectionFail,
     TTAutoUnlockDirectionLeft,
     TTAutoUnlockDirectionRight
+};
+
+typedef NS_ENUM(int, TTSupportFeature) {
+    TTSupportFeatureFingerprint = 0,
+    TTSupportFeatureCard = 1,
+    TTSupportFeaturePasscode = 2
 };
 
 @end

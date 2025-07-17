@@ -1,21 +1,20 @@
 
-//  version:2.1.4
+//  version:2.1.7
 
 
 #import <Foundation/Foundation.h>
 #import <TTLockOnPremise/TTBlocks.h>
 #import <TTLockOnPremise/TTGateway.h>
-#import <TTLockOnPremise/TTGatewayMacro.h>
-#import <TTLockOnPremise/TTGatewayScanModel.h>
-#import <TTLockOnPremise/TTSystemInfoModel.h>
 #import <TTLockOnPremise/TTMacros.h>
 #import <TTLockOnPremise/TTScanModel.h>
+#import <TTLockOnPremise/TTSystemInfoModel.h>
 #import <TTLockOnPremise/TTUtil.h>
 #import <TTLockOnPremise/TTWirelessKeypad.h>
-#import <TTLockOnPremise/TTWirelessKeypadScanModel.h>
 #import <TTLockOnPremise/TTWirelessKeyFob.h>
-#import <TTLockOnPremise/TTWirelessKeyFobScanModel.h>
 #import <TTLockOnPremise/TTDoorSensor.h>
+#import <TTLockOnPremise/TTElectricMeter.h>
+#import <TTLockOnPremise/TTWaterMeter.h>
+
 
 @interface TTLock : NSObject
 /**
@@ -146,6 +145,28 @@
  */
 + (void)getLockVersionWithLockMac:(NSString *)lockMac
                               success:(TTGetLockVersionSucceedBlock)success
+                              failure:(TTFailedBlock)failure;
+
+/**
+ Get the lock feature value
+
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the lock feature value is got
+ @param failure A block invoked when the operation fails
+ */
++ (void)getLockFeatureValueWithLockData:(NSString *)lockData
+                                success:(TTGetFeatureValueSucceedBlock)success
+                                failure:(TTFailedBlock)failure;
+
+/**
+ Get the lock system infomation (this method also can get the newest featurevalue)
+
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the lock system infomation is got
+ @param failure A block invoked when the operation fails
+ */
++ (void)getLockSystemInfoWithLockData:(NSString*)lockData
+                              success:(TTGetLockSystemSucceedBlock)success
                               failure:(TTFailedBlock)failure;
 
 /**
@@ -361,28 +382,6 @@ Set Lock Config
 						 success:(TTGetLockSoundSuccessdBlock)success
 						 failure:(TTFailedBlock)failure;
 
-/**
- Get the lock feature value
-
- @param lockData The lock data string used to operate lock
- @param success A block invoked when the lock feature value is got
- @param failure A block invoked when the operation fails
- */
-+ (void)getLockFeatureValueWithLockData:(NSString *)lockData
-                                success:(TTGetFeatureValueSucceedBlock)success
-                                failure:(TTFailedBlock)failure;
-
-/**
- Get the lock system infomation
-
- @param lockData The lock data string used to operate lock
- @param success A block invoked when the lock system infomation is got
- @param failure A block invoked when the operation fails
- */
-+ (void)getLockSystemInfoWithLockData:(NSString*)lockData
-                              success:(TTGetLockSystemSucceedBlock)success
-                              failure:(TTFailedBlock)failure;
-
 #pragma mark - Lock upgrade
 
 /**
@@ -472,8 +471,8 @@ Set Lock Config
 
  @param passcode The passcode need to be modified
  @param newPasscode The new passcode is used to replace first passcode. If you just want to modify valid date, the new passcode should be nil. New passcode is limited to 4 - 9 digits
- @param startDate The time when it becomes valid
- @param endDate The time when it is expired
+ @param startDate The time when it becomes valid,  startDate =-1 && endDate == -1  means not modifying the validity period
+ @param endDate The time when it is expired,  startDate =-1 && endDate == -1  means not modifying the validity period
  @param lockData The lock data string used to operate lock
  @param success A block invoked when passcode is modified
  @param failure A block invoked when the operation fails
@@ -550,7 +549,7 @@ Set Lock Config
 #pragma mark - IC card
 
 /**
- Add cyclic IC card
+ Add  IC card
 
  @param cyclicConfig  null array @[] , means no cyclic
                      weekDay  1~7,1 means Monday，2 means  Tuesday ,...,7 means Sunday
@@ -1058,7 +1057,7 @@ Config Ip
                  success:(TTSucceedBlock)success
                  failure:(TTFailedBlock)failure;
 /**
- Get Wifi Info
+Get Wifi Info
 @param lockData The lock data string used to operate lock
 @param success A block invoked when the operation is successful
 @param failure A block invoked when the operation fails
@@ -1066,6 +1065,44 @@ Config Ip
 + (void)getWifiInfoWithLockData:(NSString *)lockData
                         success:(TTGetWifiInfoSuccessdBlock)success
                         failure:(TTFailedBlock)failure;
+
+/**
+Get Wifi Power Saving Time
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)getWifiPowerSavingTimeWithLockData:(NSString *)lockData
+                                   success:(TTGetWifiPowerSavingTimeBlock)success
+                                   failure:(TTFailedBlock)failure;
+
+/**
+Config Wifi Power Saving Time
+@param weekDays    1~7,1 means Monday，2 means  Tuesday ,...,7 means Sunday， such as @[@1,@3,@6,@7]
+@param startDate The time when it becomes valid (minutes from 0 clock)
+@param endDate  The time when it is expired (minutes from 0 clock)
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)configWifiPowerSavingTimeWithWeekDays:(NSArray <NSNumber *> *)weekDays
+                                    startDate:(int)startDate
+                                      endDate:(int)endDate
+                                     lockData:(NSString *)lockData
+                                      success:(TTSucceedBlock)success
+                                      failure:(TTFailedBlock)failure;
+
+/**
+Clear Wifi Power Saving Time
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)clearWifiPowerSavingTimeWithLockData:(NSString *)lockData
+                                     success:(TTSucceedBlock)success
+                                     failure:(TTFailedBlock)failure;
+
+#pragma mark - Door Sensor
 
 /**
  Add Door Sensor
@@ -1431,6 +1468,44 @@ Config Ip
                   success:(TTSucceedBlock)success
                   failure:(TTFailedBlock)failure;
 
+/**
+ Modify Lock FeatureValue
+ @param types  enum  TTSupportFeature , such as @[TTSupportFeatureFingerprint,TTSupportFeatureCard,TTSupportFeaturePasscode]
+  @[] (types.count == 0), means none of them are supported
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful. if you want to get newest lockData, please call method "getLockSystemInfo".
+ @param failure A block invoked when the operation fails
+ */
++ (void)modifyLockFeatureValueWithTypes:(NSArray <NSNumber *>*)types
+                               lockData:(NSString *)lockData
+                                success:(TTSucceedBlock)success
+                                failure:(TTFailedBlock)failure;
+
+/**
+ Modify Lock Name Prefix
+ @param lockNamePrefix   prefix
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)modifyLockNamePrefix:(NSString *)lockNamePrefix
+                    lockData:(NSString *)lockData
+                     success:(TTSucceedBlock)success
+                     failure:(TTFailedBlock)failure;
+
+/**
+ Config Gateway Account
+ @param infoDic   @{@"uid": xxx ,@"userPwd": xxx, @"gatewayName": xxx, @"gatewayVersion": @0}
+          gatewayName  Cannot exceed 48 length, exceeding will be truncated
+          gatewayVersion @0 means wifi power saver
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)configGatewayAccountWithInfoDic:(NSDictionary *)infoDic
+                               lockData:(NSString *)lockData
+                                success:(TTSucceedBlock)success
+                                failure:(TTFailedBlock)failure;
 
 #pragma mark - deprecated
 
