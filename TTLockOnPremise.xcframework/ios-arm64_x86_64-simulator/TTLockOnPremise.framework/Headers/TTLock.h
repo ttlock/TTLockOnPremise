@@ -1,5 +1,5 @@
 
-//  version:2.1.7
+//  version:2.2.0
 
 
 #import <Foundation/Foundation.h>
@@ -1000,7 +1000,7 @@ Set Power Saver Controlable Lock
 										success:(TTSucceedBlock)success
 										failure:(TTFailedBlock)failure;
 
-#pragma mark - Wifi Lock
+#pragma mark - Wifi/Camera Lock
 
 /**
 Scan Wifi
@@ -1027,19 +1027,6 @@ Config Wifi
                    success:(TTSucceedBlock)success
                    failure:(TTFailedBlock)failure;
 /**
-Config Server
-@param serverAddress set @"" if you use our default server @"wifilock.ttlock.com"
-@param portNumber set @"" if you use our default server @"4999"
-@param lockData The lock data string used to operate lock
-@param success A block invoked when the operation is successful
-@param failure A block invoked when the operation fails
-*/
-+ (void)configServerWithServerAddress:(NSString *)serverAddress
-                           portNumber:(NSString *)portNumber
-                             lockData:(NSString *)lockData
-                              success:(TTSucceedBlock)success
-                              failure:(TTFailedBlock)failure;
-/**
 Config Ip
 @param info @{@"type":@(x), @"ipAddress": xxx, @"subnetMask": xxx, @"router": xxx, @"preferredDns": xxx, @"alternateDns": xxx}
  type  @(0) means manual, @(1) means automatic
@@ -1056,6 +1043,19 @@ Config Ip
                 lockData:(NSString *)lockData
                  success:(TTSucceedBlock)success
                  failure:(TTFailedBlock)failure;
+/**
+Config Server
+@param serverAddress set @"" if you use our default server @"wifilock.ttlock.com"
+@param portNumber set @"" if you use our default server @"4999"
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)configServerWithServerAddress:(NSString *)serverAddress
+                           portNumber:(NSString *)portNumber
+                             lockData:(NSString *)lockData
+                              success:(TTSucceedBlock)success
+                              failure:(TTFailedBlock)failure;
 /**
 Get Wifi Info
 @param lockData The lock data string used to operate lock
@@ -1101,6 +1101,22 @@ Clear Wifi Power Saving Time
 + (void)clearWifiPowerSavingTimeWithLockData:(NSString *)lockData
                                      success:(TTSucceedBlock)success
                                      failure:(TTFailedBlock)failure;
+
+/**
+Config Camera Lock Wifi
+@param SSID wifi name
+@param wifiPassword wifi password
+@param secCode  device security code
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)configCameraLockWifiWithSSID:(NSString *)SSID
+                        wifiPassword:(NSString *)wifiPassword
+                             secCode:(NSString *)secCode
+                            lockData:(NSString *)lockData
+                             success:(TTConfigCameraLockWifiBlock)success
+                             failure:(TTFailedBlock)failure;
 
 #pragma mark - Door Sensor
 
@@ -1506,6 +1522,120 @@ Clear Wifi Power Saving Time
                                lockData:(NSString *)lockData
                                 success:(TTSucceedBlock)success
                                 failure:(TTFailedBlock)failure;
+
+/**
+ Set Lock Working Time
+
+ @param startDate The time when it becomes valid, unit: millisecond
+ @param endDate The time when it is expired, unit: millisecond
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)setLockWorkingTimeWithStartDate:(long long)startDate
+                                endDate:(long long)endDate
+                               lockData:(NSString *)lockData
+                                success:(TTSucceedBlock)success
+                                failure:(TTFailedBlock)failure;
+
+/**
+ Set working Mode
+
+ @param workingMode  1: work all day   2: not work all day  3: Custom
+ @param cyclicConfig  when  workingMode ==3, this value is valid
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)setWorkingMode:(int)workingMode
+          cyclicConfig:(NSArray <TTWorkingModeTimeModel *> *)cyclicConfig
+              lockData:(NSString *)lockData
+               success:(TTSucceedBlock)success
+               failure:(TTFailedBlock)failure;
+
+#pragma mark - QR Code
+
+/**
+ Add Qr Code
+
+ @param cyclicConfig  null array @[] , means no cyclic
+                     weekDay  1~7,1 means Monday，2 means  Tuesday ,...,7 means Sunday
+                     startTime The time when it becomes valid (minutes from 0 clock)
+                     endTime  The time when it is expired (minutes from 0 clock)
+                     such as @[@{@"weekDay":@1,@"startTime":@10,@"endTime":@100},@{@"weekDay":@2,@"startTime":@10,@"endTime":@100}]
+ @param qrCodeNumber qr Code Number
+ @param startDate The time when it becomes valid, If it's a permanent key, set 0
+ @param endDate The time when it is expired, If it's a permanent key, set 0
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)addQrCodeWithCyclicConfig:(NSArray <NSDictionary *> *)cyclicConfig
+                     qrCodeNumber:(NSString *)qrCodeNumber
+                          startDate:(long long)startDate
+                            endDate:(long long)endDate
+                           lockData:(NSString *)lockData
+                            success:(TTSucceedBlock)success
+                            failure:(TTFailedBlock)failure;
+
+/**
+ Modify  Qr Code valid date
+ 
+ @param cyclicConfig null array @[] , means no cyclic
+ weekDay  1~7,1 means Monday，2 means  Tuesday ,...,7 means Sunday
+ startTime The time when it becomes valid (minutes from 0 clock)
+ endTime  The time when it is expired (minutes from 0 clock)
+ such as @[@{@"weekDay":@1,@"startTime":@10,@"endTime":@100},@{@"weekDay":@2,@"startTime":@10,@"endTime":@100}]
+ @param qrCodeNumber qr Code Number
+ @param startDate The time when it becomes valid
+ @param endDate The time when it is expired
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)modifyQrCodeValidityWithCyclicConfig:(NSArray <NSDictionary *> *)cyclicConfig
+                                  qrCodeNumber:(NSString *)qrCodeNumber
+                                     startDate:(long long)startDate
+                                       endDate:(long long)endDate
+                                      lockData:(NSString *)lockData
+                                       success:(TTSucceedBlock)success
+                                       failure:(TTFailedBlock)failure;
+
+/**
+ Delete Qr Code
+
+ @param qrCodeNumber qr Code Number
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)deleteQrCodeNumber:(NSString *)qrCodeNumber
+                   endDate:(long long)endDate
+                  lockData:(NSString *)lockData
+                   success:(TTSucceedBlock)success
+                   failure:(TTFailedBlock)failure;
+
+/**
+ Clear Qr Code
+
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)clearQrCodeWithLockData:(NSString *)lockData
+                        success:(TTSucceedBlock)success
+                        failure:(TTFailedBlock)failure;
+
+/**
+ Get all valid Qr Codes
+ 
+ @param lockData The lock data string used to operate lock
+ @param success A block invoked when the operation is successful
+ @param failure A block invoked when the operation fails
+ */
++ (void)getAllValidQrCodesWithLockData:(NSString *)lockData
+                               success:(TTGetAllValidQrCodesSucceedBlock)success
+                               failure:(TTFailedBlock)failure;
 
 #pragma mark - deprecated
 

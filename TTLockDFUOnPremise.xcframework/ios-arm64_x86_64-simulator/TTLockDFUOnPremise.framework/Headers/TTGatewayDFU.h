@@ -1,9 +1,5 @@
-//
-//  TTGatewayDFU.h
-//  TTLockSourceCodeDemo
-//
-//  Created by 王娟娟 on 2019/4/27.
-//  Copyright © 2019 Sciener. All rights reserved.
+
+//  Copyright © 2017 TTLock. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -233,7 +233,7 @@ typedef NS_ENUM(NSInteger,TTLockSwitchState)
     TTLockSwitchStateLock = 0,
     TTLockSwitchStateUnlock = 1,
     TTLockSwitchStateUnknown = 2,
-    TTLockSwitchStateUnlockHasCar = 3,
+    TTLockSwitchStateDeadLock = 3,
 };
 /*!
  *  @enum TTDoorSensorState
@@ -399,13 +399,11 @@ typedef NS_ENUM(NSInteger,TTLockFeatureValue) {
     TTLockFeatureValueWifiLock = 56,
     TTLockFeatureValueWifiLockStaticIP = 58,
     TTLockFeatureValuePasscodeKeyNumber = 60,
-    TTLockFeatureValueMeariCamera = 61,
     TTLockFeatureValueStandAloneActivation = 62,
     TTLockFeatureValueDoubleAuth = 63,
     TTLockFeatureValueAuthorizedUnlock = 64,
     TTLockFeatureValueGatewayAuthorizedUnlock = 65,
     TTLockFeatureValueNoEkeyUnlock = 66,
-    TTLockFeatureValueXiongMaiCamera = 67,
     TTLockFeatureValueZhiAnPhotoFace = 69,
     TTLockFeatureValuePalmVein = 70,
     TTLockFeatureValueWifiArea = 71,
@@ -424,6 +422,11 @@ typedef NS_ENUM(NSInteger,TTLockFeatureValue) {
     TTLockFeatureValueModifyLockNamePrefix = 90,
     TTLockFeatureValueAuthCode = 92,
     TTLockFeatureValuePowerSaverSupportWifi = 96,
+    TTLockFeatureValueWorkingMode = 98,
+    TTLockFeatureValueWorkingTime = 107,
+    TTLockFeatureValueCustomQRCode = 108,
+    TTLockFeatureValueSecurityM1Card = 109,
+    TTLockFeatureValueYiShengPhotoFace = 110,
 };
 
 typedef NS_ENUM(NSInteger ,TTLockConfigType) {
@@ -438,6 +441,7 @@ typedef NS_ENUM(NSInteger ,TTLockConfigType) {
     TTDoubleAuth,
     TTPublicMode,
     TTLowBatteryAutoUnlock,
+    TTSecurityM1Card,
 };
 
 /*!
