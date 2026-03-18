@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "TTSystemInfoModel.h"
+#import <TTLockOnPremise/TTSystemInfoModel.h>
 
 typedef NS_ENUM(NSInteger,TTGatewayType) {
     TTGateWayTypeG2 = 2,
@@ -67,7 +67,7 @@ typedef void(^TTInitializeGatewayBlock)(TTSystemInfoModel *systemInfoModel,TTGat
     If returned nil, the current mobile phone is not connected to the wireless network
  *  (Need to open location permissions After iOS13).
  */
-+ (NSString *)getSSID;
++ (void)getSSIDWithCompletion:(void(^)(NSString *ssid))completion;
 
 /**
  start Scan Gateway
@@ -132,5 +132,7 @@ typedef void(^TTInitializeGatewayBlock)(TTSystemInfoModel *systemInfoModel,TTGat
  Call tihis after connect gateway successfully
  */
 + (NSString *)getNetworkMac;
+
++ (NSString *)getSSID DEPRECATED_MSG_ATTRIBUTE("Use getSSIDWithCompletion: instead");
 
 @end

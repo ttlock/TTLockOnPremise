@@ -1,5 +1,5 @@
 
-//  version:2.2.0
+//  version:2.2.2
 
 
 #import <Foundation/Foundation.h>
@@ -14,7 +14,7 @@
 #import <TTLockOnPremise/TTDoorSensor.h>
 #import <TTLockOnPremise/TTElectricMeter.h>
 #import <TTLockOnPremise/TTWaterMeter.h>
-
+#import <TTLockOnPremise/TTStandaloneDoorSensor.h>
 
 @interface TTLock : NSObject
 /**
@@ -1636,6 +1636,18 @@ Config Camera Lock Wifi
 + (void)getAllValidQrCodesWithLockData:(NSString *)lockData
                                success:(TTGetAllValidQrCodesSucceedBlock)success
                                failure:(TTFailedBlock)failure;
+
++ (void)setPasscodeAttributesWithPasscode:(NSString *)passcode
+                               attributes:(TTPasscodeAttributes *)attributes
+                                 lockData:(NSString *)lockData
+                                  success:(TTSucceedBlock)success
+                                  failure:(TTFailedBlock)failure;
+
++ (void)setCardAttributesWithCardNumber:(NSString *)cardNumber
+                             attributes:(TTCardAttributes *)attributes
+                               lockData:(NSString *)lockData
+                                success:(TTSucceedBlock)success
+                                failure:(TTFailedBlock)failure;
 
 #pragma mark - deprecated
 

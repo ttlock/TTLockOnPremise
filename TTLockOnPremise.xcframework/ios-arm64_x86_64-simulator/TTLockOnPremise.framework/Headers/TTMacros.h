@@ -415,18 +415,31 @@ typedef NS_ENUM(NSInteger,TTLockFeatureValue) {
     TTLockFeatureValueAutoSetUnlockDirection = 81,
     TTLockFeatureValueWifiPowerSavingTime = 83,
     TTLockFeatureValueMultifunctionalKeypad = 84,
+    TTLockFeatureValueFullyAutomatic = 85,
     TTLockFeatureValuePublicMode = 86,
     TTLockFeatureValueLowBatteryAutoUnlock = 87,
     TTLockFeatureValueMotorDriveTime = 88,
     TTLockFeatureValueModifyFeatureValue = 89,
     TTLockFeatureValueModifyLockNamePrefix = 90,
+    TTLockFeatureValuePasscodeWithOpenPrivacyLock = 91,
     TTLockFeatureValueAuthCode = 92,
+    TTLockFeatureValueUnauthorizedAttemptAlert = 93,
+    TTLockFeatureValueLinkLock = 94,
     TTLockFeatureValuePowerSaverSupportWifi = 96,
+    TTLockFeatureValueAdvertisingInterval = 97,
     TTLockFeatureValueWorkingMode = 98,
+    TTLockFeatureValueSupplierNumber = 99,
+    TTLockFeatureValueCatOne = 100,
+    TTLockFeatureValueDoorForceOpenAlert = 102,
+    TTLockFeatureValueZhiAnSecondGenerationPhotoFace = 103,
+    TTLockFeatureValueSecondDeadLock = 106,
     TTLockFeatureValueWorkingTime = 107,
     TTLockFeatureValueCustomQRCode = 108,
     TTLockFeatureValueSecurityM1Card = 109,
     TTLockFeatureValueYiShengPhotoFace = 110,
+    TTLockFeatureValueSemiAutomaticModeControl = 119,
+    TTLockFeatureValueSetUserAttributes = 120,
+    
 };
 
 typedef NS_ENUM(NSInteger ,TTLockConfigType) {
@@ -442,6 +455,7 @@ typedef NS_ENUM(NSInteger ,TTLockConfigType) {
     TTPublicMode,
     TTLowBatteryAutoUnlock,
     TTSecurityM1Card,
+    TTSemiAutomaticModeControl
 };
 
 /*!
