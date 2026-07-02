@@ -1,5 +1,5 @@
 
-//  version:2.2.2
+//  version:2.2.4
 
 
 #import <Foundation/Foundation.h>
@@ -15,6 +15,7 @@
 #import <TTLockOnPremise/TTElectricMeter.h>
 #import <TTLockOnPremise/TTWaterMeter.h>
 #import <TTLockOnPremise/TTStandaloneDoorSensor.h>
+#import <TTLockOnPremise/TTHumanPresenceSensor.h>
 
 @interface TTLock : NSObject
 /**
@@ -986,7 +987,18 @@ Set Power Saver Work Mode
 					 lockData:(NSString *)lockData
 					  success:(TTSucceedBlock)success
 					  failure:(TTFailedBlock)failure;
-
+/**
+Set Power Saver Work Modes
+ 
+@param workModes enum TTPowerSaverWorkMode , such as @[TTPowerSaverWorkModeAllCards,TTPowerSaverWorkModeAutoGetPower]
+@param lockData The lock data string used to operate lock
+@param success A block invoked when the operation is successful
+@param failure A block invoked when the operation fails
+*/
++ (void)setPowerSaverWorkModes:(NSArray <NSNumber *>*)workModes
+                     lockData:(NSString *)lockData
+                      success:(TTSucceedBlock)success
+                      failure:(TTFailedBlock)failure;
 /**
 Set Power Saver Controlable Lock
  
@@ -1672,6 +1684,22 @@ Config Camera Lock Wifi
                    lockData:(NSString *)lockData
                     success:(TTSucceedBlock)success
                     failure:(TTFailedBlock)failure;
+
+/**
+ @param unlockModes  enum  TTUnauthorizedAttemptAlertType , such as @[TTUnauthorizedAttemptAlertTypePasscode]]
+ @param attemptAlertCount failed attempts (0~50，0 means closed )
+ @param lockoutDuration lockout duration (unit: second, 0-900)
+*/
++ (void)setUnauthorizedAttemptAlertWithUnlockModes:(NSArray <NSNumber *>*)unlockModes
+                                 attemptAlertCount:(int)attemptAlertCount
+                                   lockoutDuration:(int)lockoutDuration
+                                    lockData:(NSString *)lockData
+                                     success:(TTSucceedBlock)success
+                                     failure:(TTFailedBlock)failure;
+
++ (void)getUnauthorizedAttemptAlertWithLockData:(NSString *)lockData
+                                        success:(TTGetUnauthorizedAttemptAlertBlock)success
+                                        failure:(TTFailedBlock)failure;
 
 
 #pragma mark - deprecated

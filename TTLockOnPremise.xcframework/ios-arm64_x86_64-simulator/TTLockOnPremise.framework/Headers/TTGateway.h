@@ -2,7 +2,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import <TTLockOnPremise/TTSystemInfoModel.h>
+#import "TTSystemInfoModel.h"
 
 typedef NS_ENUM(NSInteger,TTGatewayType) {
     TTGateWayTypeG2 = 2,

@@ -1,6 +1,6 @@
 
 //  Copyright © 2025 TTLock. All rights reserved.
-//  version:2.2.0
+//  version:2.2.4
 
 #import <Foundation/Foundation.h>
 #import <TTLockOnPremise/TTLock.h>
@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger,TTDeviceType) {
     TTDeviceTypeKeypad,
     TTDeviceTypeRemote,
     TTDeviceTypeDoorSensor,
+    TTDeviceTypeHumanPresenceSensor,
 };
 
 @interface TTDeviceDFUModel : NSObject
