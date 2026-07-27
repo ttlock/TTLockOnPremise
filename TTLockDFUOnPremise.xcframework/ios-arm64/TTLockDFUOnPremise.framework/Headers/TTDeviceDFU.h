@@ -1,6 +1,6 @@
 
 //  Copyright © 2025 TTLock. All rights reserved.
-//  version:2.2.4
+//  version:2.2.6
 
 #import <Foundation/Foundation.h>
 #import <TTLockOnPremise/TTLock.h>
@@ -29,7 +29,9 @@ typedef NS_ENUM(NSInteger,TTDeviceType) {
 
 // Lock, Remote and DoorSensor need to set this value, the lockData of lock
 @property (nonatomic, strong) NSString *lockData;
-// Remote need to set this value , if the remote has featureValue
+// Keypad need to set this value
+@property (nonatomic, assign) NSInteger slotNumber;
+// Remote(if the remote has featureValue), WaterMeter, ElectricMeter need to set this value
 @property (nonatomic, strong) NSString *featureValue;
 
 @end

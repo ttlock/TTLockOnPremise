@@ -1,6 +1,6 @@
 
 //  Copyright © 2017 TTLock. All rights reserved.
-//  version:2.2.4
+//  version:2.2.6
 
 #import <Foundation/Foundation.h>
 #import "TTDeviceDFU.h"
